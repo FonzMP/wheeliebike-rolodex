@@ -11,3 +11,5 @@
 <% if @motorcycle.size != nil %>
   <p>Size: <%= @motorcycle.size %></p>
 <% end %>
+
+<p>Bike Owner: <a href="/users/<%= @bike_owner %>"><%= @bike_owner %></a></p>

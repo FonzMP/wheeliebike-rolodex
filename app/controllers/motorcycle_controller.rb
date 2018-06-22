@@ -30,6 +30,7 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles/:id' do
     @motorcycle = Motorcycle.find(params[:id])
+    @bike_owner = @motorcycle.user.username
 
     erb :"motorcycles/show"
   end
