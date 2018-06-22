@@ -13,7 +13,9 @@
 <br>
 <br>
 <p><a href="/">Home</a></p>
-<% if current_user %>
+<% if current_user != @user %>
+  <p><a href="/users/<%= current_user.slug %>">Your Profile Page</a></p>
+<% else %>
   <p><a href="/motorcycles">View All Motorcycles</a></p>
   <p><a href="/logout">Logout</a></p>
 <% end %>
