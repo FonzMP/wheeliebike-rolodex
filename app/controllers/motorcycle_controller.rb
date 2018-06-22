@@ -1,13 +1,21 @@
 class MotorcycleController < ApplicationController
 
   get '/motorcycles' do
-    @motorcycles = Motorcycle.all
+    if !current_user
+      redirect 'login'
+    else
+      @motorcycles = Motorcycle.all
 
-    erb :"motorcycles/index"
+      erb :"motorcycles/index"
+    end
   end
 
   get '/motorcycles/new' do
-    erb :"motorcycles/create"
+    if !current_user
+      redirect '/login'
+    else
+      erb :"motorcycles/create"
+    end
   end
 
   post '/motorcycles' do
@@ -29,10 +37,14 @@ class MotorcycleController < ApplicationController
   end
 
   get '/motorcycles/:id' do
-    @motorcycle = Motorcycle.find(params[:id])
-    @bike_owner = @motorcycle.user.username
+    if !current_user
+      redirect '/login'
+    else
+      @motorcycle = Motorcycle.find(params[:id])
+      @bike_owner = @motorcycle.user.username
 
-    erb :"motorcycles/show"
+      erb :"motorcycles/show"
+    end
   end
 
   get '/motorcycles/:id/edit' do
