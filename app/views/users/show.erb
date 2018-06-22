@@ -1,21 +1,32 @@
-<%= @user.username %>
+<h1><%= @user.username %>'s User Profile Page</h1>
 
 <br><br>
+<% if @user.motorcycles.size == 0 %>
+  <p>You currently have no bikes! Start creating some now!</p>
+  <p><a href="/motorcycles/new">Create a bike here</a></p>
+<% else %>
 <p>Your Bikes</p>
-<% @user.motorcycles.each do |motorcycle| %>
-  <h3>Bike</h3>
-  <p>Make: <%= motorcycle.make %></p>
-  <p>Model: <%= motorcycle.model %></p>
-  <p>Year: <%= motorcycle.year %></p>
-  <p>Size: <%= motorcycle.size %> cc</p>
-  <br>
+  <% @user.motorcycles.each.with_index do |motorcycle, i| %>
+    <h3>Bike <%= i + 1 %></h3>
+    <p>Make: <%= motorcycle.make %></p>
+    <p>Model: <%= motorcycle.model %></p>
+    <p>Year: <%= motorcycle.year %></p>
+    <p>Size: <%= motorcycle.size %> cc</p>
+    <br>
+    <p><a href="/motorcycles/<%= motorcycle.id %>/edit">Edit Motorcycle Details</a></p>
+    <form method="POST" action="/motorcycles/<%= motorcycle.id %>">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete">
+    </form>
+  <% end %>
 <% end %>
 <br>
 <br>
 <p><a href="/">Home</a></p>
 <% if current_user != @user %>
   <p><a href="/users/<%= current_user.slug %>">Your Profile Page</a></p>
-<% else %>
+<% end %>
+<% if current_user %>
   <p><a href="/motorcycles">View All Motorcycles</a></p>
   <p><a href="/logout">Logout</a></p>
 <% end %>

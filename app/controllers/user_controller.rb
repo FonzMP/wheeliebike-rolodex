@@ -5,5 +5,7 @@ class UserController < ApplicationController
     
     erb :"users/show"
   end
+
+
   
 end

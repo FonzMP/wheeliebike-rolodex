@@ -1,0 +1,42 @@
+<% if @motorcycle && @motorcycle.errors %>
+  <% @motorcycle.errors.full_messages.each do |err| %>
+    <%= err %>
+    <br>
+  <% end %>
+<% end %>
+
+<h3>Please update <%= @motorcycle.make %> <%= @motorcycle.model %></h3>
+
+<form action="/motorcycles/<%= @motorcycle.id %>" method="POST">
+<input id="hidden" type="hidden" name="_method" value="patch">
+
+
+  <label for="make">Make: </label>
+  <input type="text" name="make" placeholder="Make" value="<%= @motorcycle.make %>"><span>  *required</span>
+
+  <br><br>
+
+  <label for="model">Model: </label>
+  <input type="text" name="model" placeholder="Model" value="<%= @motorcycle.model %>">
+
+  <br><br>
+
+  <label for="year">Year: </label>
+  <input type="text" name="year" placeholder="Year" value="<%= @motorcycle.year %>">
+
+  <br><br>
+  
+  <label for="size">Size: </label>
+  <input type="text" name="size" placeholder="Size" value="<%= @motorcycle.size %>">
+
+  <br><br>
+
+  <input type="submit" value="Submit">
+
+</form>
+
+<br><br>
+
+
+<p><a href="/">Home</a></p>
+<p><a href="/logout">Logout</a></p>

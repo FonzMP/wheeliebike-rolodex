@@ -1,11 +1,20 @@
-<% @motorcycles.each do |motorcycle| %>
-  <h3>Bike</h3>
+<% @motorcycles.each.with_index do |motorcycle, i| %>
+  <h3>Bike <%= i + 1 %></h3>
   <p>Make: <%= motorcycle.make %></p>
   <p>Model: <%= motorcycle.model %></p>
   <p>Year: <%= motorcycle.year %></p>
   <p>Size: <%= motorcycle.size %> cc</p>
+  <p><a href="/motorcycles/<%= motorcycle.id %>">View bike <%= i + 1 %></a>
+  <% if current_user.motorcycles.include?(motorcycle) %>
+    <p><a href="/motorcycles/<%= motorcycle.id %>/edit">Edit Motorcycle Details</a></p>
+    <form method="POST" action="/motorcycles/<%= motorcycle.id %>">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete">
+    </form>
+  <% end %>
   <br>
 <% end %>
+
 
 <p><a href="/">Home</a></p>
 <% if current_user %>
