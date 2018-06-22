@@ -5,7 +5,7 @@
   <p>You currently have no bikes! Start creating some now!</p>
   <p><a href="/motorcycles/new">Create a bike here</a></p>
 <% else %>
-<p>Your Bikes</p>
+<p><%= @user.username %>'s Bikes</p>
   <% @user.motorcycles.each.with_index do |motorcycle, i| %>
     <h3>Bike <%= i + 1 %></h3>
     <p>Make: <%= motorcycle.make %></p>

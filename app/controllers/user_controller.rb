@@ -34,11 +34,16 @@ class UserController < ApplicationController
 
   post '/login' do
     @user = find_user(params)
+
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect "users/#{@user.slug}"
+    elsif @user
+      @error = "Password cannot be left blank!"
+      erb :"users/login"
     else
-      redirect '/login'
+      @error = "We could not find that user in our database"
+      erb  :"users/login"
     end
   end
 
