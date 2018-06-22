@@ -1,21 +1,9 @@
-<% if @user && @user.errors %>
-  <% @user.errors.full_messages.each do |err| %>
-    <%= err %>
-    <br>
-  <% end %>
-<% end %>
-
 <h3>Please create your new login credentials</h3>
 
-<form action="/signup" method="POST">
+<form action="/login" method="POST">
 
   <label for="username">Username: </label>
   <input type="text" name="username" placeholder="Username"><span>  *required</span>
-
-  <br><br>
-
-  <label for="email">Email: </label>
-  <input type="text" name="email" placeholder="Email">
 
   <br><br>
 
