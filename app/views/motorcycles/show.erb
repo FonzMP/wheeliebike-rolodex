@@ -1,4 +1,13 @@
 <p>Make: <%= @motorcycle.make %></p>
-<p>Model: <%= @motorcycle.model %></p>
-<p>Year: <%= @motorcycle.year %></p>
-<p>Size: <%= @motorcycle.size %></p>
+
+<% if @motorcycle.model != nil %>
+  <p>Model: <%= @motorcycle.model %></p>
+<% end %>
+
+<% if @motorcycle.year != nil %>
+  <p>Year: <%= @motorcycle.year %></p>
+<% end %>
+
+<% if @motorcycle.size != nil %>
+  <p>Size: <%= @motorcycle.size %></p>
+<% end %>
