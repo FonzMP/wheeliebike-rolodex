@@ -2,7 +2,8 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles' do
     if !current_user
-      redirect 'login'
+      @error = "You must be Logged In to see that!"
+      erb :"/users/login"
     else
       @motorcycles = Motorcycle.all
 
@@ -12,7 +13,8 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles/new' do
     if !current_user
-      redirect '/login'
+      @error = "You must be Logged In to see that!"
+      erb :"/users/login"
     else
       erb :"motorcycles/create"
     end
@@ -38,7 +40,8 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles/:id' do
     if !current_user
-      redirect '/login'
+      @error = "You must be Logged In to see that!"
+      erb :"/users/login"
     else
       @motorcycle = Motorcycle.find(params[:id])
       @bike_owner = @motorcycle.user.username
@@ -49,7 +52,8 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles/:id/edit' do
     if !current_user
-      redirect '/login'
+      @error = "You must be Logged In to see that!"
+      erb :"/users/login"
     else
       @motorcycle = Motorcycle.find(params[:id])
       if current_user.motorcycles.include?(@motorcycle)
