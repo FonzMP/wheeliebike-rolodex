@@ -1,7 +1,5 @@
 class User < ActiveRecord::Base
 
-  attr_writer :slug
-
   has_many :motorcycles
 
   has_secure_password
@@ -16,7 +14,7 @@ class User < ActiveRecord::Base
 
   def self.find_by_slug(slug_name)
     self.all.each do |user|
-      if user.slug = slug_name
+      if user.slug == slug_name
         return user
       end
     end

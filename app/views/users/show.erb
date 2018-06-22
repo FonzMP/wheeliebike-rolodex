@@ -1,5 +1,19 @@
 <%= @user.username %>
 
+<br><br>
+<p>Your Bikes</p>
+<% @user.motorcycles.each do |motorcycle| %>
+  <h3>Bike</h3>
+  <p>Make: <%= motorcycle.make %></p>
+  <p>Model: <%= motorcycle.model %></p>
+  <p>Year: <%= motorcycle.year %></p>
+  <p>Size: <%= motorcycle.size %> cc</p>
+  <br>
+<% end %>
 <br>
 <br>
-<a href="/logout">Logout</a>
+<p><a href="/">Home</a></p>
+<% if current_user %>
+  <p><a href="/motorcycles">View All Motorcycles</a></p>
+  <p><a href="/logout">Logout</a></p>
+<% end %>

@@ -27,3 +27,14 @@
   <input type="submit" value="Submit">
 
 </form>
+
+<br><br>
+
+
+<p><a href="/">Home</a></p>
+<% if !current_user %>
+  <p><a href="/signup">New Users - Sign Up</a></p>
+  <p><a href="/login">Existing Users - Sign In</a></p>
+<% else %>
+  <p><a href="/logout">Logout</a></p>
+<% end %>

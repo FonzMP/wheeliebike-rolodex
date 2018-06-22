@@ -1,0 +1,40 @@
+<% if @motorcycle && @motorcycle.errors %>
+  <% @motorcycle.errors.full_messages.each do |err| %>
+    <%= err %>
+    <br>
+  <% end %>
+<% end %>
+
+<h3>Please create your new motorcycle</h3>
+
+<form action="/motorcycles" method="POST">
+
+  <label for="make">Make: </label>
+  <input type="text" name="make" placeholder="Make"><span>  *required</span>
+
+  <br><br>
+
+  <label for="model">Model: </label>
+  <input type="text" name="model" placeholder="Model">
+
+  <br><br>
+
+  <label for="year">Year: </label>
+  <input type="text" name="year" placeholder="Year">
+
+  <br><br>
+  
+  <label for="size">Size: </label>
+  <input type="text" name="size" placeholder="Size">
+
+  <br><br>
+
+  <input type="submit" value="Submit">
+
+</form>
+
+<br><br>
+
+
+<p><a href="/">Home</a></p>
+<p><a href="/logout">Logout</a></p>

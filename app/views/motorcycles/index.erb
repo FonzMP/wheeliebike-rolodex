@@ -1,0 +1,16 @@
+<% @motorcycles.each do |motorcycle| %>
+  <h3>Bike</h3>
+  <p>Make: <%= motorcycle.make %></p>
+  <p>Model: <%= motorcycle.model %></p>
+  <p>Year: <%= motorcycle.year %></p>
+  <p>Size: <%= motorcycle.size %> cc</p>
+  <br>
+<% end %>
+
+<p><a href="/">Home</a></p>
+<% if current_user %>
+  <p><a href="/motorcycles/new">Create a New Motorcycle</a></p>
+  <p><a href="/motorcycles">View All Motorcycles</a></p>
+  <p><a href="/users/<%= current_user.slug %>">Your Profile Page</a></p>
+  <p><a href="/logout">Logout</a></p>
+<% end %>
