@@ -48,9 +48,16 @@ class MotorcycleController < ApplicationController
   end
 
   get '/motorcycles/:id/edit' do
-    @motorcycle = Motorcycle.find(params[:id])
-
-    erb :"motorcycles/edit"
+    if !current_user
+      redirect '/login'
+    else
+      @motorcycle = Motorcycle.find(params[:id])
+      if current_user.motorcycles.include?(@motorcycle)
+        erb :"motorcycles/edit"
+      else
+        redirect '/motorcycles'
+      end
+    end
   end
 
   patch '/motorcycles/:id' do
