@@ -1,5 +1,7 @@
 <% if @error %>
-  <p><%= @error %></p>
+  <% @error.each do |err| %>
+    <p><%= err %></p>
+  <% end %>
 <% end %>
 
 <h3>Please login</h3>

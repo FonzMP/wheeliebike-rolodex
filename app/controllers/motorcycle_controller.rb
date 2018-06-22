@@ -66,6 +66,7 @@ class MotorcycleController < ApplicationController
 
   patch '/motorcycles/:id' do
     @motorcycle = Motorcycle.find(params[:id])
+
     @motorcycle.update(make: params[:make]) if params[:make]
     @motorcycle.update(model: params[:model]) if params[:model]
     @motorcycle.update(year: params[:year]) if params[:year]
@@ -77,10 +78,10 @@ class MotorcycleController < ApplicationController
 
   delete '/motorcycles/:id' do
     @motorcycle = Motorcycle.find(params[:id])
-    @user = User.find(session[:user_id])
-    @motorcycle.delete
-
-    redirect "/users/#{@user.slug}"
+    if current_user.motorcycles.include?(@motorcycle)
+      @motorcycle.delete
+    end
+    redirect "/users/#{current_user.slug}"
   end
 
 end

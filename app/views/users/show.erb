@@ -13,11 +13,14 @@
     <p>Year: <%= motorcycle.year %></p>
     <p>Size: <%= motorcycle.size %> cc</p>
     <br>
-    <p><a href="/motorcycles/<%= motorcycle.id %>/edit">Edit Motorcycle Details</a></p>
-    <form method="POST" action="/motorcycles/<%= motorcycle.id %>">
-    <input id="hidden" type="hidden" name="_method" value="delete">
+    <% if current_user.motorcycles.include?(motorcycle) %>
+      <br>
+      <p><a href="/motorcycles/<%= motorcycle.id %>/edit">Edit Details</a></p>
+      <form method="POST" action="/motorcycles/<%= motorcycle.id %>">
+      <input id="hidden" type="hidden" name="_method" value="delete">
       <input type="submit" value="delete">
     </form>
+  <% end %>
   <% end %>
 <% end %>
 <br>

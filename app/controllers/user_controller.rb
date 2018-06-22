@@ -2,7 +2,7 @@ class UserController < ApplicationController
 
   get '/users/:slug' do
     if !current_user
-      @error = "You must be Logged In to see that!"
+      @error = ["You must be Logged In to see that!"]
       erb :"/users/login"
     else
       @user = User.find_by_slug(params[:slug])
@@ -24,6 +24,7 @@ class UserController < ApplicationController
 
       redirect "/users/#{@user.slug}"
     else
+      @error = @user.errors.full_messages
       erb :"users/create"
     end
   end
@@ -38,11 +39,11 @@ class UserController < ApplicationController
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect "users/#{@user.slug}"
-    elsif @user
-      @error = "Password cannot be left blank!"
-      erb :"users/login"
     else
-      @error = "We could not find that user in our database"
+      @error = []
+      @error << "Username can't be blank" if params[:username].empty?
+      @error << "Password can't be blank" if params[:password].empty?
+
       erb  :"users/login"
     end
   end

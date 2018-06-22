@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
-  # do I need password w/ has_secure_password?
   validates :username, uniqueness: true
   validates :username, presence: true
 
