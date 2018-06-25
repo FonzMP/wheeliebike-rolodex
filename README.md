@@ -8,6 +8,10 @@ This application provides its users an environment to list their motorcycles and
 # Running the Application
 To run this application simply fork and clone the repo. Once cloned, make sure you run ```bundle install```, and then you'll need to run ```rake db:migrate``` and start the application using ```shotgun```.
 
+# Contributing
+
+Bug reports and pull requests are welcome at [https://github.com/FonzMP/wheeliebike-rolodex.git](https://github.com/FonzMP/wheeliebike-rolodex.git) .
+
 # License
 
 ```MIT License
