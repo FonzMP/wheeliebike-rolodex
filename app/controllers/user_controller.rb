@@ -20,9 +20,9 @@ class UserController < ApplicationController
     @user.email = params[:email] if params[:email] != nil
 
     if @user.save
-      session[:user_id] = @user.id
+      session[:user_id] = current_user.id
 
-      redirect "/users/#{@user.slug}"
+      redirect "/users/#{current_user.slug}"
     else
       @error = @user.errors.full_messages
       erb :"users/create"
