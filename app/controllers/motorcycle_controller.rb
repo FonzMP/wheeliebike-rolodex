@@ -3,7 +3,7 @@ class MotorcycleController < ApplicationController
   get '/motorcycles' do
     if !current_user
       @error = ["You must be Logged In to see that!", "Please Sign In to view content"]
-      
+
       erb :"/users/login"
     else
       @motorcycles = Motorcycle.all
@@ -14,7 +14,8 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles/new' do
     if !current_user
-      @error = "You must be Logged In to see that!"
+      @error = ["You must be Logged In to see that!", "Please Sign In to view content"]
+
       erb :"/users/login"
     else
       erb :"motorcycles/create"
@@ -22,26 +23,33 @@ class MotorcycleController < ApplicationController
   end
 
   post '/motorcycles' do
-    @motorcycle = Motorcycle.create(make: params[:make])
-    if @motorcycle.save
-      @motorcycle.model = params[:model] if params[:model] != ""
-      @motorcycle.year = params[:year] if params[:year] != ""
-      @motorcycle.size = params[:size] if params[:size] != ""
+    if !current_user
+      @error = ["You must be Logged In to see that!", "Please Sign In to view content"]
 
-      @motorcycle.save
-
-      current_user.motorcycles << @motorcycle
-      current_user.save
-
-      redirect '/motorcycles'
+      erb :"users/login"
     else
-      erb :"motorcycles/create"
+      @motorcycle = Motorcycle.create(make: params[:make])
+      if @motorcycle.save
+        @motorcycle.model = params[:model] if params[:model] != ""
+        @motorcycle.year = params[:year] if params[:year] != ""
+        @motorcycle.size = params[:size] if params[:size] != ""
+
+        @motorcycle.save
+
+        current_user.motorcycles << @motorcycle
+        current_user.save
+
+        redirect '/motorcycles'
+      else
+        erb :"motorcycles/create"
+      end
     end
   end
 
   get '/motorcycles/:id' do
     if !current_user
-      @error = "You must be Logged In to see that!"
+      @error = ["You must be Logged In to see that!", "Please Sign In to view content"]
+
       erb :"/users/login"
     else
       @motorcycle = Motorcycle.find(params[:id])
@@ -53,7 +61,8 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles/:id/edit' do
     if !current_user
-      @error = "You must be Logged In to see that!"
+      @error = ["You must be Logged In to see that!", "Please Sign In to view content"]      
+      
       erb :"/users/login"
     else
       @motorcycle = Motorcycle.find(params[:id])
@@ -66,21 +75,34 @@ class MotorcycleController < ApplicationController
   end
 
   patch '/motorcycles/:id' do
-    @motorcycle = Motorcycle.find(params[:id])
+    if !current_user
+      @error = ["You must be Logged In to see that!", "Please Sign In to view content"]      
+      
+      erb :"/users/login"
+    else
+      @motorcycle = Motorcycle.find(params[:id])
 
-    @motorcycle.update(make: params[:make]) if params[:make]
-    @motorcycle.update(model: params[:model]) if params[:model]
-    @motorcycle.update(year: params[:year]) if params[:year]
-    @motorcycle.update(size: params[:size]) if params[:size]
-    @motorcycle.save
+      @motorcycle.update(make: params[:make]) if params[:make]
+      @motorcycle.update(model: params[:model]) if params[:model]
+      @motorcycle.update(year: params[:year]) if params[:year]
+      @motorcycle.update(size: params[:size]) if params[:size]
+      @motorcycle.save
 
-    redirect "/motorcycles/#{@motorcycle.id}"
+      redirect "/motorcycles/#{@motorcycle.id}"
+    end
   end
 
   delete '/motorcycles/:id' do
-    @motorcycle = Motorcycle.find(params[:id])
-    if current_user.motorcycles.include?(@motorcycle)
-      @motorcycle.delete
+    if !current_user
+      @error = ["You must be Logged In to see that!", "Please Sign In to delete content"]      
+      
+      erb :"/users/login"
+    else
+      @motorcycle = Motorcycle.find(params[:id])
+      if current_user.motorcycles.include?(@motorcycle)
+        @motorcycle.delete
+      end
+      
     end
     redirect "/users/#{current_user.slug}"
   end
