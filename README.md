@@ -6,6 +6,5 @@ This application provides its users an environment to list their motorcycles and
 
 
 # Running the Application
-To run this application simply fork and clone the repo. Once cloned, you'll need to run 
-```rake db:migrate``` and then start up the application using ```shotgun```.
+To run this application simply fork and clone the repo. Once cloned, make sure you run ```bundle install```, and then you'll need to run ```rake db:migrate``` and start the application using ```shotgun```.
 
