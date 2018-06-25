@@ -25,6 +25,7 @@ class UserController < ApplicationController
       redirect "/users/#{current_user.slug}"
     else
       @error = @user.errors.full_messages
+
       erb :"users/create"
     end
   end
@@ -38,12 +39,24 @@ class UserController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
+
       redirect "users/#{@user.slug}"
     else
       @error = []
-      @error << "Username can't be blank" if params[:username].empty?
-      @error << "Password can't be blank" if params[:password].empty?
-
+      if params[:username].empty?
+        @error << "Username can't be blank, please try again."
+      else
+        if !@user
+          @error << "We couldn't find a user with that login, please try again."
+        else
+          if params[:password].empty?
+            @error << "Password can't be blank"
+          elsif @user.authenticate(params[:password]) == false
+            @error << "That password is not valid, please try again."
+          end
+        end
+      end
+      
       erb  :"users/login"
     end
   end
