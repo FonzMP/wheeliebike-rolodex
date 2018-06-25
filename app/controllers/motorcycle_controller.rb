@@ -29,6 +29,8 @@ class MotorcycleController < ApplicationController
       erb :"users/login"
     else
       @motorcycle = Motorcycle.create(make: params[:make])
+      @error = []
+
       if @motorcycle.save
         @motorcycle.model = params[:model] if params[:model] != ""
         @motorcycle.year = params[:year] if params[:year] != ""
@@ -42,7 +44,6 @@ class MotorcycleController < ApplicationController
         redirect '/motorcycles'
       else
         if params[:make].empty?
-          @error = []
           @error << "Sorry, make is required to create a new bike. Please try again."
         else
           #this probably won't happen, but good protection
