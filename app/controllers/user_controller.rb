@@ -20,7 +20,7 @@ class UserController < ApplicationController
     @user.email = params[:email] if params[:email] != nil
 
     if @user.save
-      session[:user_id] = current_user.id
+      session[:user_id] = @user.id
 
       redirect "/users/#{current_user.slug}"
     else
