@@ -2,7 +2,8 @@ class MotorcycleController < ApplicationController
 
   get '/motorcycles' do
     if !current_user
-      @error = "You must be Logged In to see that!"
+      @error = ["You must be Logged In to see that!", "Please Sign In to view content"]
+      
       erb :"/users/login"
     else
       @motorcycles = Motorcycle.all
