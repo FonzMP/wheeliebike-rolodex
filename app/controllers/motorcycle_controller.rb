@@ -41,6 +41,14 @@ class MotorcycleController < ApplicationController
 
         redirect '/motorcycles'
       else
+        if params[:make].empty?
+          @error = []
+          @error << "Sorry, make is required to create a new bike. Please try again."
+        else
+          #this probably won't happen, but good protection
+          @error << "Sorry, something went wrong in our system. Please try again."
+        end
+
         erb :"motorcycles/create"
       end
     end
@@ -69,6 +77,7 @@ class MotorcycleController < ApplicationController
       if current_user.motorcycles.include?(@motorcycle)
         erb :"motorcycles/edit"
       else
+        # add an error here saying they don't own the bike
         redirect '/motorcycles'
       end
     end
@@ -102,7 +111,6 @@ class MotorcycleController < ApplicationController
       if current_user.motorcycles.include?(@motorcycle)
         @motorcycle.delete
       end
-      
     end
     redirect "/users/#{current_user.slug}"
   end
