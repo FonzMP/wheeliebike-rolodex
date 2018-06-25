@@ -79,7 +79,7 @@ class MotorcycleController < ApplicationController
       # locates motorcycle by id passed through in params
       @motorcycle = Motorcycle.find(params[:id])
       #locates bike owner for display
-      @bike_owner = @motorcycle.user.username
+      @bike_owner = @motorcycle.user
 
       erb :"motorcycles/show"
     end

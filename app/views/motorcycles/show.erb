@@ -12,13 +12,12 @@
   <p>Size: <%= @motorcycle.size %></p>
 <% end %>
 
-<!-- how do I slug this? --!>
-<p>Bike Owner: <%= @bike_owner %></a></p>
+<p>Bike Owner: <a href="/users/<%= @bike_owner.slug %>" ><%= @bike_owner.username %></a></p>
 
 <br><br>
 
 <hr>
 
-<p><a href="/users/<%= current_user.slug %>">Your Profile</a></p>
+<p><a href="/users/<%= current_user.slug %>">Your Profile Page</a></p>
 <p><a href="/motorcycles">View All Motorcycles</a></p>
 <p><a href="/logout">Logout</a></p>
